@@ -4,4 +4,13 @@
   <artifactId>jogodosoito</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>Jogo dos oito</name>
+  
+  <dependencies>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>5.4.0</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
 </project>

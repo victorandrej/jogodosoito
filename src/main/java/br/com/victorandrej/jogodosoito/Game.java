@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -84,7 +83,7 @@ public class Game {
 
 	private Set<Peca> gerarPecas() {
 		Set<Peca> pecas = new HashSet<Peca>();
-		List<Integer> numeros = new ArrayList();
+		List<Integer> numeros = new ArrayList<>();
 
 		for (int i = 1; i <= (tabuleiro.getAltura() * tabuleiro.getLargura()) - espacos; i++) {
 			numeros.add(i);

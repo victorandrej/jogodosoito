@@ -6,16 +6,20 @@ import org.junit.jupiter.api.Test;
 import br.com.victorandrej.jogodosoito.componentes.Tabuleiro;
 
 public class GameTest {
- 
+
 	Game game;
-	
+
 	@BeforeEach
 	public void initGame() {
-		game = new Game(new Tabuleiro(3, 3),1,new ConsoleDesenhador(),new ConsoleEntrada());
+		game = new Game(new Tabuleiro(3, 3), 7, new ConsoleDesenhador(), new ConsoleEntrada());
+		game.quandoGanharListener(() -> {
+			System.out.println("voce Ganhou!!");
+			game.sair();
+		});
 	}
-	
+
 	@Test
-	void gameStart(){
+	void gameStart() {
 		game.start();
 	}
 

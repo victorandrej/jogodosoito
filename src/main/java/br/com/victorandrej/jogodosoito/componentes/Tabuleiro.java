@@ -92,16 +92,13 @@ public class Tabuleiro {
 		
 		Posicao posicao = new Posicao(posicaoAtual.getX() + incrementoX, posicaoAtual.getY() + incrementoY);
 		
-		boolean posicaoValida = posicaoValida(posicao);
-		if(posicaoValida) {
+		if(posicaoValida(posicao)) {
 			if (posicao.equals(posicaoDesejada))
 					return true;
 			else if(!posicoesVerificadas.contains(posicao)) {
 				posicoesVerificadas.add(posicao);
 				return ehAlcancavel(posicao, posicaoDesejada, posicoesVerificadas);
 			}
-			
-			
 		}		
 		return false;
 	}

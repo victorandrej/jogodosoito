@@ -40,9 +40,9 @@ public class Game {
 		this.gerarPecas().forEach(tabuleiro::adicionarPeca);
 		while (true) {
 			desenhador.desenhar(this.tabuleiro);
-			entrada.entrar(tabuleiro);
+			entrada.entrar(tabuleiro,this);
 
-			if (estaGanho())
+			if (estaGanho() && quandoGanhar != null)
 				quandoGanhar.run();
 			if (sair)
 				break;

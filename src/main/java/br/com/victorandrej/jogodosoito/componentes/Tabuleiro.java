@@ -67,28 +67,28 @@ public class Tabuleiro {
 	}
 
 	private boolean ehAlcancavel(Posicao posicaoAtual, Posicao posicaoDesejada) {
-		return ehAlcancavel(posicaoAtual, posicaoDesejada, new ArrayList<Posicao>());
+		return ehAlcancavel(posicaoAtual, posicaoDesejada, new HashSet<Posicao>());
 	}
 
-	private boolean ehAlcancavel(Posicao posicaoAtual, Posicao posicaoDesejada, List<Posicao> posicoesVerificadas) {
+	private boolean ehAlcancavel(Posicao posicaoAtual, Posicao posicaoDesejada, Set<Posicao> posicoesVerificadas) {
 
-		if (ehAlcancavel(posicaoAtual, posicaoDesejada, -1, 0, new ArrayList<Posicao>(posicoesVerificadas)))
+		if (ehAlcancavel(posicaoAtual, posicaoDesejada, -1, 0, new HashSet<Posicao>(posicoesVerificadas)))
 			return true;
 
-		if (ehAlcancavel(posicaoAtual, posicaoDesejada, 1, 0, new ArrayList<Posicao>(posicoesVerificadas)))
+		if (ehAlcancavel(posicaoAtual, posicaoDesejada, 1, 0, new HashSet<Posicao>(posicoesVerificadas)))
 			return true;
 
-		if (ehAlcancavel(posicaoAtual, posicaoDesejada, 0, -1, new ArrayList<Posicao>(posicoesVerificadas)))
+		if (ehAlcancavel(posicaoAtual, posicaoDesejada, 0, -1, new HashSet<Posicao>(posicoesVerificadas)))
 			return true;
 
-		if (ehAlcancavel(posicaoAtual, posicaoDesejada, 0, 1, new ArrayList<Posicao>(posicoesVerificadas)))
+		if (ehAlcancavel(posicaoAtual, posicaoDesejada, 0, 1, new HashSet<Posicao>(posicoesVerificadas)))
 			return true;
 
 		return false;
 	}
 
 	private boolean ehAlcancavel(Posicao posicaoAtual, Posicao posicaoDesejada, int incrementoY, int incrementoX,
-			List<Posicao> posicoesVerificadas) {
+			Set<Posicao> posicoesVerificadas) {
 
 		Posicao posicao = new Posicao(posicaoAtual.getX() + incrementoX, posicaoAtual.getY() + incrementoY);
 

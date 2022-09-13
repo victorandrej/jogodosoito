@@ -35,25 +35,27 @@ public class Game {
 	}
 
 	public void resetar() {
+		this.sair = false;
 		tabuleiro = new Tabuleiro(tabuleiro.getAltura(), tabuleiro.getLargura());
 	}
 
 	public void start() {
-		this.sair = false;
+	
 		this.gerarPecas().forEach(tabuleiro::adicionarPeca);
 
 		while (true) {
-
 			desenhador.desenhar(this.tabuleiro);
-			
 
 			if (estaGanho() && quandoGanhar != null)
 				quandoGanhar.run();
-			
+
 			if (sair)
 				break;
-			
-			entrada.entrar(this);		
+
+			entrada.entrar(this);
+
+			if (sair)
+				break;
 		}
 	}
 

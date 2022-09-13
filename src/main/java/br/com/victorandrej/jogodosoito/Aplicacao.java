@@ -27,7 +27,7 @@ public class Aplicacao {
 
 
 	private static int tamanhoTabela() {
-		System.out.print("Informe o tamanho do tabuleiro: (Padrao 3x3): ");
+		System.out.print("Informe o tamanho do tabuleiro: (Padrao 3 '3x3'): ");
 		String retorno = scanner.nextLine();
 
 		if (retorno.isBlank())

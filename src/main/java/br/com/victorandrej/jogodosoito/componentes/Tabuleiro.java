@@ -89,17 +89,17 @@ public class Tabuleiro {
 
 	private boolean ehAlcancavel(Posicao posicaoAtual, Posicao posicaoDesejada, int incrementoY, int incrementoX,
 			List<Posicao> posicoesVerificadas) {
-		
+
 		Posicao posicao = new Posicao(posicaoAtual.getX() + incrementoX, posicaoAtual.getY() + incrementoY);
-		
-		if(posicaoValida(posicao)) {
+
+		if (posicaoValida(posicao)) {
 			if (posicao.equals(posicaoDesejada))
-					return true;
-			else if(!posicoesVerificadas.contains(posicao)) {
+				return true;
+			else if (!posicoesVerificadas.contains(posicao)) {
 				posicoesVerificadas.add(posicao);
 				return ehAlcancavel(posicao, posicaoDesejada, posicoesVerificadas);
 			}
-		}		
+		}
 		return false;
 	}
 
@@ -108,10 +108,11 @@ public class Tabuleiro {
 			throw new PecaNaoRegistradaException(peca + " não registrada");
 
 		List<Posicao> posicoes = new ArrayList<>();
-	
+
 		for (int i = 0; i < this.altura; i++) {
 			for (int j = 0; j < this.largura; j++) {
 				Posicao posicao = new Posicao(j, i);
+
 				if (!posicao.equals(peca.getPosicao()) && posicaoValida(posicao)
 						&& ehAlcancavel(peca.getPosicao(), posicao)) {
 					posicoes.add(posicao);

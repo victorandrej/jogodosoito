@@ -19,13 +19,15 @@ public class ConsoleEntrada implements Entrada {
 	}
 
 	@Override
-	public void entrar(Tabuleiro tabuleiro, Game game) {
-
+	public void entrar(Game game) {
 		Map<Peca, Posicao[]> pecasComMovimentos = new HashMap<>();
 		StringBuilder sb = new StringBuilder();
+		
 		sb.append("Pecas selecionaveis: ");
-		for (Peca peca : tabuleiro.getPecas()) {
-			Posicao[] posicoes = tabuleiro.posicoesDisponiveis(peca);
+		
+		for (Peca peca : game.getTabuleiro().getPecas()) {
+			Posicao[] posicoes =  game.getTabuleiro().posicoesDisponiveis(peca);
+			
 			if (posicoes.length != 0) {
 				sb.append(peca);
 				sb.append(" ");
@@ -33,22 +35,25 @@ public class ConsoleEntrada implements Entrada {
 
 			}
 		}
+		
 		System.out.println(sb);
-		System.out.print("selecione uma peca: ");
+		System.out.print("selecione uma peca ou digite 'sair' para sair: ");
+		
 		String valor = scanner.nextLine();
 
 		if (valor.equalsIgnoreCase("sair"))
 			game.sair();
 
-		Integer numPeca = parseInt(valor);
-
+		Integer numPeca = Util.parseInt(valor);
+		
 		if (numPeca == null)
 			return;
 
 		Optional<Entry<Peca, Posicao[]>> entryPeca = pecasComMovimentos.entrySet().stream()
 				.filter(f -> f.getKey().getNumero() == numPeca).findFirst();
+		
 		if (entryPeca.isPresent())
-			movimentoMenu(entryPeca.get(), tabuleiro);
+			movimentoMenu(entryPeca.get(),  game.getTabuleiro());
 		else
 			System.out.println("Numero invalido!");
 
@@ -57,16 +62,21 @@ public class ConsoleEntrada implements Entrada {
 	private void movimentoMenu(Entry<Peca, Posicao[]> entryPeca, Tabuleiro tabuleiro) {
 		Peca peca = entryPeca.getKey();
 		Posicao[] posicoes = entryPeca.getValue();
+		
 		System.out.println(peca + " Movimentos: ");
+		
 		for (int i = 0; i < posicoes.length; i++) {
 			System.out.println(i + 1 + ")" + posicoes[i]);
 		}
+		
 		System.out.println("0) Voltar");
 		System.out.print("Opcao: ");
-		Integer valor = parseInt(scanner.nextLine());
+		
+		Integer valor = Util.parseInt(scanner.nextLine());
 
 		if (valor == null || valor < 0 || valor > posicoes.length) {
 			System.out.println("Opcao Invalida");
+			
 			movimentoMenu(entryPeca, tabuleiro);
 			return;
 		}
@@ -75,14 +85,6 @@ public class ConsoleEntrada implements Entrada {
 			return;
 
 		tabuleiro.mudarPosicaoPeca(peca, posicoes[valor - 1]);
-	}
-
-	private Integer parseInt(String valor) {
-		try {
-			return Integer.parseInt(valor);
-		} catch (NumberFormatException err) {
-			return null;
-		}
 	}
 
 }

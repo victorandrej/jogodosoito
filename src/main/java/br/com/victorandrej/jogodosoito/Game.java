@@ -35,18 +35,31 @@ public class Game {
 		this.quandoGanhar = quandoGanhar;
 	}
 
+	public void resetar() {
+		tabuleiro = new Tabuleiro(tabuleiro.getAltura(), tabuleiro.getLargura());
+	}
+
 	public void start() {
 		this.sair = false;
 		this.gerarPecas().forEach(tabuleiro::adicionarPeca);
+
 		while (true) {
+
 			desenhador.desenhar(this.tabuleiro);
-			entrada.entrar(tabuleiro,this);
+			
 
 			if (estaGanho() && quandoGanhar != null)
 				quandoGanhar.run();
+			
 			if (sair)
 				break;
+			
+			entrada.entrar(this);		
 		}
+	}
+
+	public Tabuleiro getTabuleiro() {
+		return this.tabuleiro;
 	}
 
 	public void sair() {
@@ -57,12 +70,13 @@ public class Game {
 		Peca pecaAnterior = null;
 		List<Peca> pecasOrdenadas = Stream.of(this.tabuleiro.getPecas())
 				.sorted((p1, p2) -> p1.getNumero() < p2.getNumero() ? -1 : 1).collect(Collectors.toList());
-		for (Peca p : pecasOrdenadas) {
 
-			if (pecaAnterior != null && pecaAnterior.getPosicao().estaNaFrente(p.getPosicao()))
+		for (Peca peca : pecasOrdenadas) {
+			if ((pecaAnterior != null && pecaAnterior.getPosicao().estaNaFrente(peca.getPosicao()))
+					|| Stream.of(tabuleiro.posicoesDisponiveis(peca)).anyMatch(p -> peca.getPosicao().estaNaFrente(p)))
 				return false;
-			
-			pecaAnterior = p;
+
+			pecaAnterior = peca;
 		}
 
 		return true;
@@ -70,19 +84,20 @@ public class Game {
 
 	private Set<Peca> gerarPecas() {
 		Set<Peca> pecas = new HashSet<Peca>();
-
 		List<Integer> numeros = new ArrayList();
 
 		for (int i = 1; i <= (tabuleiro.getAltura() * tabuleiro.getLargura()) - espacos; i++) {
 			numeros.add(i);
 		}
+
 		Collections.shuffle(numeros);
 		int contador = 0;
+
 		for (int i = 0; i < tabuleiro.getAltura(); i++) {
 			for (int j = 0; j < tabuleiro.getLargura(); j++) {
 				if (contador >= ((tabuleiro.getAltura() * tabuleiro.getLargura()) - espacos))
 					break;
-				
+
 				pecas.add(new Peca(numeros.get(numeros.size() - 1), new Posicao(j, i)));
 				numeros.remove(numeros.size() - 1);
 				contador++;

@@ -9,7 +9,8 @@ import br.com.victorandrej.jogodosoito.componentes.Peca;
 import br.com.victorandrej.jogodosoito.componentes.Posicao;
 import br.com.victorandrej.jogodosoito.componentes.Tabuleiro;
 import br.com.victorandrej.jogodosoito.exceptions.MuitasPecasException;
-import br.com.victorandrej.jogodosoito.exceptions.PosicaoJaUsadaException;
+import br.com.victorandrej.jogodosoito.exceptions.PosicaoInvalidaException;
+
 
 public class TabuleiroTest {
 
@@ -44,7 +45,7 @@ public class TabuleiroTest {
 		int tabuleiroTamanho = 2;
 		Tabuleiro tabuleiro = new Tabuleiro(tabuleiroTamanho, tabuleiroTamanho);
 
-		assertThrows(PosicaoJaUsadaException.class, ()->{
+		assertThrows(PosicaoInvalidaException.class, ()->{
 			tabuleiro.adicionarPeca(new Peca(1, new Posicao(1,1)));
 			tabuleiro.adicionarPeca(new Peca(2, new Posicao(1,1)));
 		});
@@ -58,5 +59,31 @@ public class TabuleiroTest {
 			tabuleiro.adicionarPeca(new Peca(1, new Posicao(1,1)));
 			tabuleiro.adicionarPeca(new Peca(2, new Posicao(1,2)));
 		});
+	}
+	@Test
+	public void mudarPecaParaPosicaoInvalida() {
+		assertThrows(PosicaoInvalidaException.class,()->{
+			int tabuleiroTamanho = 2;
+			Tabuleiro tabuleiro = new Tabuleiro(tabuleiroTamanho,tabuleiroTamanho);
+			Peca peca = new Peca(1,new Posicao(1,1));
+			tabuleiro.adicionarPeca(peca);
+		
+			tabuleiro.mudarPosicaoPeca(peca, new Posicao(-1, -1));
+			
+		});
+		
+	}
+	@Test
+	public void mudarPecaParaPosicaoValida() {
+		assertDoesNotThrow(()->{
+			int tabuleiroTamanho = 2;
+			Tabuleiro tabuleiro = new Tabuleiro(tabuleiroTamanho,tabuleiroTamanho);
+			Peca peca = new Peca(1,new Posicao(1,1));
+			tabuleiro.adicionarPeca(peca);
+			
+			tabuleiro.mudarPosicaoPeca(peca, new Posicao(1, 1));
+			
+		});
+		
 	}
 }

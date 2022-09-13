@@ -17,12 +17,10 @@ public class Posicao {
 		return this.y;
 	}
 
-	public void setY(int y) {
-		this.y = y;
-	}
+	public boolean estaNaFrente(Posicao posicao) {
 
-	public void setX(int x) {
-		this.x = x;
+		return posicao != null
+				&& ((this.x > posicao.x && this.y >= posicao.y) || (this.x >= posicao.x && this.y > posicao.y));
 	}
 
 	@Override

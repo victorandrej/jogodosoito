@@ -10,14 +10,20 @@ public class Peca {
 	}
 
 	public int getNumero() {
-		return this.getNumero();
+		return this.numero;
 	}
-	Posicao getPosicao() {
+
+	public Posicao getPosicao() {
 		return this.posicao;
 	}
 	
+
 	@Override
 	public String toString() {
 		return "Peca: " + numero;
+	}
+
+	void setPosicao(Posicao posicao) {
+		this.posicao = posicao;
 	}
 }

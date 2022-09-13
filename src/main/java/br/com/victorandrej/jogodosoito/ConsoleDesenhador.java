@@ -12,12 +12,13 @@ public class ConsoleDesenhador implements Desenhador {
 
 	@Override
 	public void desenhar(Tabuleiro tabuleiro) {
+		
 		List<Peca> ordenedPeca = Stream.of(tabuleiro.getPecas()).sorted((p1,p2)->p1.getPosicao().estaNaFrente(p2.getPosicao()) ? 1 : -1).collect(Collectors.toList());
 		StringBuilder sb = new StringBuilder();
 		int contador = 0;
 		for(Peca p : ordenedPeca) {
 			
-			sb.append(p.getNumero()+" ");
+			sb.append(" "+p);
 			
 			contador++;
 			

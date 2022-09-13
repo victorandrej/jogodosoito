@@ -18,9 +18,16 @@ public class Posicao {
 	}
 
 	public boolean estaNaFrente(Posicao posicao) {
+		if (posicao == null)
+			return false;
 
-		return posicao != null
-				&& ((this.x > posicao.x && this.y >= posicao.y) || (this.x >= posicao.x && this.y > posicao.y));
+		if (this.y == posicao.y) {
+			return this.x >= posicao.x;
+		}
+
+		
+		return this.y > posicao.y;
+
 	}
 
 	@Override
@@ -28,7 +35,7 @@ public class Posicao {
 		if (!(obj instanceof Posicao))
 			return false;
 
-		return this.x == ((Posicao) obj).x && this.y == ((Posicao) obj).y;
+		return (this.x == ((Posicao) obj).x) && (this.y == ((Posicao) obj).y);
 
 	}
 

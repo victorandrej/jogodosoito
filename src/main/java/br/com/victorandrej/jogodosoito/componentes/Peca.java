@@ -16,7 +16,14 @@ public class Peca {
 	public Posicao getPosicao() {
 		return this.posicao;
 	}
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Peca))
+			return false;
+
+		return this.numero == ((Peca) obj).numero;
+	}
 
 	@Override
 	public String toString() {

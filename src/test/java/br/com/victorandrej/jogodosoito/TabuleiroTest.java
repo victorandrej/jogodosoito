@@ -99,8 +99,10 @@ public class TabuleiroTest {
 	
 	@Test
 	public void pegarTodasAsPosicoesPossiveis() {
-		Peca peca = new Peca(1, new Posicao(1, 1));
+		Peca peca = new Peca(1, new Posicao(1, 0));
 		tabuleiro.adicionarPeca(peca);
+		for(Posicao p : tabuleiro.posicoesDisponiveis(peca))
+		System.out.println(p);
 		assertEquals(8,tabuleiro.posicoesDisponiveis(peca).length);
 	}
 	@Test
@@ -111,6 +113,7 @@ public class TabuleiroTest {
 		tabuleiro.adicionarPeca(peca);
 		tabuleiro.adicionarPeca(peca2);
 		tabuleiro.adicionarPeca(peca3);
+
 		assertEquals(0,tabuleiro.posicoesDisponiveis(peca).length);
 	}
 	@Test
